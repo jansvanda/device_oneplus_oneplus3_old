@@ -122,7 +122,20 @@ void load_op3t(const char *model) {
     property_override("ro.vendor.product.device", "OnePlus3T");
     property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR6.170623.013 83 release-keys");
     property_override("ro.build.fingerprint", "OnePlus/OnePlus3/OnePlus3T:8.0.0/OPR6.170623.013/10250816:user/release-keys");
+    property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR6.170623.013 8 release-keys");
+    property_override("ro.build.fingerprint", "8.0.0/OPR6.170623.013/09201505:user/release-keys");
     property_set("ro.power_profile.override", "power_profile_3t");
+}
+
+static void import_panel_prop(const std::string& key, const std::string& value, bool for_emulator) {
+    if (key.empty()) return;
+
+    if (key.compare("mdss_mdp.panel") == 0) {
+        if (value.find("s6e3fa3") != std::string::npos)
+            property_override("ro.product.panel", "samsung_s6e3fa3_1080p");
+        if (value.find("s6e3fa5") != std::string::npos)
+            property_override("ro.product.panel", "samsung_s6e3fa5_1080p");
+    }
 }
 
 void vendor_load_properties() {
